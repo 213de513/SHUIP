@@ -6,7 +6,7 @@
             <label for="college" class="col-sm-3 control-label text-left">学&nbsp;&nbsp;&nbsp;&nbsp;院</label>
             <div class="col-sm-9">
             <select name="college" id="coloege" class="form-control" v-model="nowColoege" @change="changeCollege">
-                <option value="" disabled selected style='display:none;'>请选择学院</option>
+                <option value="all" disabled selected style='display:none;'>请选择学院</option>
                 <option v-for='(item,index) in college' :key='index' :value="item"  >{{item}}</option>                
             </select>
             </div>
@@ -15,7 +15,7 @@
             <label for="grade" class="col-sm-3 control-label">年&nbsp;&nbsp;&nbsp;&nbsp;级</label>
             <div class="col-sm-9">
             <select name="grade" id="grade" class='form-control' v-model="grade" >
-                <option value="" disabled selected style='display:none;'>请选择年级</option>
+                <option value="all" disabled selected style='display:none;'>请选择年级</option>
                 <option value="1">研一</option>
                 <option value="2">研二</option>
                 <option value="3">研三</option>
@@ -26,7 +26,7 @@
             <label for="discipline" class="col-sm-3 control-label">专&nbsp;&nbsp;&nbsp;&nbsp;业</label>
             <div class="col-sm-9">
             <select name="discipline" id="discipline" class="form-control" v-model="myDiscipline">
-                <option value="" disabled selected style='display:none;'>请选择专业</option>
+                <option value="all" disabled selected style='display:none;'>请选择专业</option>
                 <option v-for='(item,index) in discipline' :key='index' :value="item"  >{{item}}</option>                
             </select>
             </div>
@@ -65,31 +65,34 @@
    data () {
      return {
          formData:{},
-         nowColoege:'',
-         grade:'',
-         college:['理学院','文学院','外国语学院','管理学院','法学院','通信与信息工程学院','计算机工程与科学学院','机电工程与自动化学院','材料科学与工程学院','生命科学学院','上海美术学院','上海电影学院','悉尼工商学院','土木工程系','社会学院','音乐学院','经济学院','微电子研究与开发中心','力学所','图书情报档案系','材料基因组工程研究院','上海研究院','国际教育学院','新闻传播学院','体育学院'],
+         nowColoege:'all',//所选学院
+         grade:'all',//所选年级
+         college:['全校','理学院','文学院','外国语学院','管理学院','法学院','通信与信息工程学院','计算机工程与科学学院','机电工程与自动化学院','材料科学与工程学院','生命科学学院','上海美术学院','上海电影学院','悉尼工商学院','土木工程系','社会学院','音乐学院','经济学院','微电子研究与开发中心','力学所','图书情报档案系','材料基因组工程研究院','上海研究院','国际教育学院','新闻传播学院','体育学院'],
          discipline:[],
-         myDiscipline:'',
-         start:'',
-         end:'',
-         year:[]
+         myDiscipline:'all',//所选专业
+         start:'',//所选开始时间
+         end:'',//所选结束事件
+         year:[]//所选年度
      }
    },
    methods:{
      search(){
          this.formData = {
-              college:this.nowColoege,//学院
+                college:this.nowColoege,//学院
                 grade:this.grade,//年级
                 discipline:this.myDiscipline,//专业
-                year:this.year,
+                year:this.year,//年度
                 start:this.start,//起始时间
                 end:this.end//结束时间
          }
-       this.$store.commit('changeForm',this.formData);
-       this.$emit('search');
+         
+       this.$store.commit('changeForm',this.formData); //更改store里form表单数据
+       this.$emit('search');//向父组件提交search事件
      },
      changeCollege(){
          switch(this.nowColoege){
+             case '全校':
+             this.discipline = ['全校']; break;
              case '理学院':
              this.discipline = ['数学','统计学','物理学','化学']; break;
              case '文学院':
