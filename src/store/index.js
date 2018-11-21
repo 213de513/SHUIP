@@ -9,7 +9,7 @@ export default new vuex.Store({
             college:'all',//学院
             grade:'all',//年级
             discipline:'all',//专业
-            year:[],
+            //year:'',
             start:'',//起始时间
             end:''//结束时间
         },
@@ -42,15 +42,19 @@ export default new vuex.Store({
             state.form = form;
         },
         pPost(state,form){
-            /*
+             /*
                 这是axios响应处理函数
+                数据处理函数
             */ 
             //更新bar字段
             state.chartData = form;
             //更新pie字段
+            state.pieData.title = form.title;
+            state.pieData.legend = form.xAxis;
             var arr= [];
             for(var i=0;i<form.series.data.length;i++){
                 var temp = {};
+                
                 temp.name= form.xAxis[i];
                 temp.value = form.series.data[i];
                 arr.push(temp);
@@ -58,6 +62,9 @@ export default new vuex.Store({
             state.pieData.data = arr;
         },
         drawBar(state,ele){
+            /**
+             * 柱状图绘制函数 
+             */
             var myChart = echarts.init(document.getElementById(ele));
             var nowData = state.chartData;
             var option = {
@@ -66,7 +73,10 @@ export default new vuex.Store({
                  },
                  tooltip: {},
                  xAxis: {
-                     data: nowData.xAxis
+                     data: nowData.xAxis,
+                     axisTick: {
+                        alignWithLabel: true
+                    }
                  },
                  yAxis: {},
                  toolbox: {
@@ -81,14 +91,30 @@ export default new vuex.Store({
                  series: [{
                      name: nowData.series.name,
                      type: 'bar',
-                     data: nowData.series.data
+                     data: nowData.series.data,
+                     itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 10
+                        },
+                        normal: {
+                            barBorderRadius: 10,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 1, 0, 0,
+                                [
+                                    {offset: 0, color: '#3977E6'},
+                                    {offset: 1, color: '#37BBF8'}
+    
+                                ]
+                            )
+                        }
+                    }
                  }]
              };
  
              myChart.setOption(option);
         },
         drawPie(state,ele){
-            // alert('drawPie');
+            // 饼状图绘制函数
             var myChart = echarts.init(document.getElementById(ele));
             var pieData = state.pieData;
             var option = {
@@ -117,10 +143,16 @@ export default new vuex.Store({
                                  shadowBlur: 10,
                                  shadowOffsetX: 0,
                                  shadowColor: 'rgba(0, 0, 0, 0.5)'
-                             }
-                         }
+                             },
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY:10
+                            
+                         },
+                         minAngle : 1
                      }
-                 ]
+                 ],
+                 color:['#FF3333','#CC3399', '#00FF66', '#00B1DD', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
              };
              myChart.setOption(option);
         }
@@ -128,9 +160,10 @@ export default new vuex.Store({
     actions:{
         ajax({commit,state}){
             state.showLoading = true;
-            axios.post('/apis/search',state.form).then((res)=>{
+            axios.post('/apis/selStu',state.form).then((res)=>{
                 state.showLoading = false;
                 commit('pPost',res.data);
+                //每次数据改变都需要重新调用api绘制图形
                 commit('drawBar','chart1');
                 commit('drawPie','chart2');
             })

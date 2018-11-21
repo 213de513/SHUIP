@@ -11,6 +11,7 @@
 <script>
 var echarts = require('echarts');
 import { mapGetters } from 'vuex'
+import {mapMutations} from 'vuex'
  export default {
    data () {
      return {
@@ -19,17 +20,19 @@ import { mapGetters } from 'vuex'
    },
    mounted(){
        //进入默认状态，全校状态 get请求
-       this.$http.get('/apis').then((res)=>{
+       this.$store.state.showLoading = true;
+       this.$http.get('/apis/selStu').then((res)=>{
             //在一进入页面，先更改数据，在重新commit
+            this.pPost(res.data);
+            this.$store.state.showLoading = false;
             this.$store.commit('drawBar','chart1');
             this.$store.commit('drawPie','chart2');
-           console.log(res.data);
-       }).catch(()=>{
-           alert('error');
        })
    },
    methods:{
-        
+        ...mapMutations([
+            'pPost'
+        ])
    }
  }
 </script>
