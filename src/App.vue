@@ -9,6 +9,7 @@
     <div id='loading' v-show='showLoading'>
       <img src="static/loading-master/loading-spinning-bubbles.svg" alt="loading" id='img'>
     </div>
+    <my-photo ></my-photo>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import myHeader from './components/header'
 import myMenu from './components/menu'
 import myNav from './components/nav'
 import searchBar from './components/searchBar'
+import myPhoto from './components/animation'
 export default {
   name: 'App',
   data(){
@@ -95,7 +97,8 @@ export default {
     myHeader,
     myMenu,
     myNav,
-    searchBar
+    searchBar,
+    myPhoto
   }
 }
 </script>
@@ -129,4 +132,5 @@ export default {
       height: 100%;
     }
   }
+
 </style>

@@ -5,12 +5,19 @@
          <div id="chart1"></div>
          <div id="chart2"></div>
      </div>
+     <div class="XQ">
+         <div id='chart3'></div>
+         <div id='chart4'></div>
+         <div id='chart5'></div>
+     </div>
  </div>
 </template>
 
 <script>
 var echarts = require('echarts');
 import { mapGetters } from 'vuex'
+import {mapMutations} from 'vuex'
+
  export default {
    data () {
      return {
@@ -19,17 +26,26 @@ import { mapGetters } from 'vuex'
    },
    mounted(){
        //进入默认状态，全校状态 get请求
+       this.$store.state.showLoading = true;       
+       var route = this.$route.path.slice(6);
        this.$http.get('/apis').then((res)=>{
             //在一进入页面，先更改数据，在重新commit
+            //更改数据
+            this.pPost(res.data);
+            //更改vuex里route的数据，得知现在在哪一页
+            this.changeRoute(route);
+            this.$store.state.showLoading = false;
             this.$store.commit('drawBar','chart1');
+            this.$store.commit('drawBar1','chart3');
+            this.$store.commit('drawBar2','chart4');
+            this.$store.commit('drawBar3','chart5');
             this.$store.commit('drawPie','chart2');
-           console.log(res.data);
-       }).catch(()=>{
-           alert('error');
        })
    },
    methods:{
-        
+        ...mapMutations([
+            'pPost','changeRoute'
+        ])
    }
  }
 </script>

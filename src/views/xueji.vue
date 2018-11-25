@@ -1,6 +1,6 @@
 <template>
  <div class='body'>   
-     <router-view></router-view>
+     <router-view></router-view> 
  </div>
 </template>
 
@@ -17,7 +17,7 @@
 <style lang='less'>
     .body{
         position: absolute;
-        left: 302px;
+        left: 272px;
         right: 0;
         top: 152px;
         background-color: #f1f4f7;
@@ -35,6 +35,16 @@
             justify-content: space-around;
             div{
                 width: 40%;
+            }
+        }
+        .XQ{
+            margin-top: 50px;
+            height: 300px;
+            display: flex;
+            justify-content: space-around;
+            div{
+                width: 33%;
+                // background-color: #f60;
             }
         }
     }
