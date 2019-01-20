@@ -1,6 +1,6 @@
 <template>
- <div class='body'>
-     <h2>课程数据</h2>
+ <div class='body'>   
+     <router-view></router-view> 
  </div>
 </template>
 
@@ -10,14 +10,58 @@
      return {
 
      }
-   },
-   components: {
-
    }
  }
 </script>
 
-<style>
-
- 
+<style lang='less'>
+    .body{
+        position: absolute;
+        left: 222px;
+        right: 0;
+        top: 154px;
+        background-color: #f1f4f7;
+        min-height: 777px;
+        .subTitle{
+            width: 250px;
+            margin: 40px auto;
+            border-bottom: 3px solid #f60;
+            text-align: center;
+            font-size: 30px;
+        }
+    }
+         @media screen and (max-width:1550px){
+          .body{
+        position: absolute;
+        left: 182px;
+        right: 0;
+        top: 130px;
+        background-color: #f1f4f7;
+        min-height: 777px;
+        .subTitle{
+            width: 120px;
+            margin: 20px auto;
+            border-bottom: 2px solid #f60;
+            text-align: center;
+            font-size: 24px;
+        }
+        .chartsContainer{
+            min-height: 400px;
+            display: flex;
+            justify-content: space-around;
+            div{
+                width: 40%;
+            }
+        }
+        .XQ{
+            margin-top: 50px;
+            height: 300px;
+            display: flex;
+            justify-content: space-around;
+            div{
+                width: 33%;
+            }
+        }
+    }
+     }
 </style>

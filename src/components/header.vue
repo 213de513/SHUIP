@@ -14,6 +14,9 @@
    },
    components: {
 
+   },
+   mounted(){
+       console.log(document.documentElement.clientWidth);
    }
  }
 </script>
@@ -21,24 +24,47 @@
 <style lang='less'>
     #header{
         padding:5px 70px;
-        height: 100px;
+        height: 80px;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         background-color: #fff;
-        z-index: 999;
+        z-index: 99;
         #logo{
             float: left;
-            width: 68px;
-            height: 80px;
+            width: 60px;
+            height: 70px;
         }
         #title{
             font-size: 36px;
-            height: 100px;
-            line-height: 100px;
+            height: 80px;
+            line-height: 80px;
             text-align: center;
         }
+    }
+    @media screen and (max-width:1550px) {
+            #header{
+                padding:5px 70px;
+                height: 40px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                z-index: 999;
+                #logo{
+                    float: left;
+                    width: 25px;
+                    height: 30px;
+                }
+                #title{
+                    font-size: 20px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                }
+            }
     }
  
 </style>

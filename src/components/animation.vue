@@ -50,13 +50,13 @@
 #photo{
   text-align: center;
   position: fixed;
-  top: -245px;
+  top: -255px;
   right: -122px;
   z-index: 9999998;
   margin-top:100px;
   vertical-align: middle;
   cursor: pointer;
-  transform: scale(0.2,0.2)
+  transform: scale(0.16,0.16)
 }
 .background-circle{
   width: 400px;
@@ -66,10 +66,7 @@
   margin: 0 auto;
   background-color: #95B3BF;
   position: relative;
-  -webkit-mask-image: -webkit-radial-gradient(#BADA55, #BADA55);
-  -moz-mask-image: -webkit-radial-gradient(#BADA55, #BADA55);
-  -o-mask-image: -webkit-radial-gradient(#BADA55, #BADA55);
-  -ms-mask-image: -webkit-radial-gradient(#BADA55, #BADA55);
+  mask-image: -webkit-radial-gradient(#BADA55, #BADA55);
   animation:grow 0.7s 1 ease;
   -webkit-animation:grow 0.7s 1 ease;
   transform-origin: center;
@@ -307,7 +304,7 @@
   left: 50%;
   margin-left: -20px;
   opacity: 0;
-  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .eye-shadow#left .eyebrow{
   animation:eyebrow-anim-left 0.7s 2.2s 1 ease;

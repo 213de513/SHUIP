@@ -17,20 +17,20 @@
 <style lang='less'>
     .body{
         position: absolute;
-        left: 272px;
+        left: 222px;
         right: 0;
-        top: 152px;
+        top: 154px;
         background-color: #f1f4f7;
-        height: 800px;
+        min-height: 777px;
         .subTitle{
             width: 180px;
-            margin: 30px auto;
+            margin: 40px auto;
             border-bottom: 3px solid #f60;
             text-align: center;
             font-size: 30px;
         }
         .chartsContainer{
-            height: 400px;
+            min-height: 400px;
             display: flex;
             justify-content: space-around;
             div{
@@ -44,8 +44,41 @@
             justify-content: space-around;
             div{
                 width: 33%;
-                // background-color: #f60;
             }
         }
     }
+         @media screen and (max-width:1550px){
+          .body{
+        position: absolute;
+        left: 182px;
+        right: 0;
+        top: 130px;
+        background-color: #f1f4f7;
+        min-height: 777px;
+        .subTitle{
+            width: 120px;
+            margin: 20px auto;
+            border-bottom: 2px solid #f60;
+            text-align: center;
+            font-size: 24px;
+        }
+        .chartsContainer{
+            min-height: 400px;
+            display: flex;
+            justify-content: space-around;
+            div{
+                width: 40%;
+            }
+        }
+        .XQ{
+            margin-top: 50px;
+            height: 300px;
+            display: flex;
+            justify-content: space-around;
+            div{
+                width: 33%;
+            }
+        }
+    }
+     }
 </style>
