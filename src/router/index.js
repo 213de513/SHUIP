@@ -196,31 +196,31 @@ router.beforeEach((to, from, next) => {
   var storage = window.localStorage;
   if (to.matched.some(record => record.meta.requiresAuth)) {
       var storage = window.localStorage;
-      next(); //测试next
-      // var num = storage.getItem('userID');
-      // NProgress.start();
-      // axios.get('/apis/user/checkLogin',{params:{sID:num}}).then(res=>{
-      //     if(res.data.code==2000){//在线
-      //       storage.setItem('userID',res.data.data.sID);
-      //       storage.setItem('status','on');
-      //       storage.setItem('college',res.data.data.role);
-      //       setTimeout(() => {
-      //         NProgress.done();
-      //         next();
-      //       }, 1000);
-      //     }else if(res.data.code==2001){
-      //       storage.setItem('userID',-1);
-      //       storage.setItem('status','off');
-      //       storage.setItem('college','');
-      //       NProgress.done();
-      //       next({
-      //         path: '/'
-      //       })
-      //     }        
-      // }).catch(err=>{
-      //   NProgress.done();
-      //   alert('出现未知错误,请刷新页面')
-      // })        
+      //next(); //测试next
+      var num = storage.getItem('userID');
+      NProgress.start();
+      axios.get('/apis/user/checkLogin',{params:{sID:num}}).then(res=>{
+          if(res.data.code==2000){//在线
+            storage.setItem('userID',res.data.data.sID);
+            storage.setItem('status','on');
+            storage.setItem('college',res.data.data.role);
+            setTimeout(() => {
+              NProgress.done();
+              next();
+            }, 1000);
+          }else if(res.data.code==2001){
+            storage.setItem('userID',-1);
+            storage.setItem('status','off');
+            storage.setItem('college','');
+            NProgress.done();
+            next({
+              path: '/'
+            })
+          }        
+      }).catch(err=>{
+        NProgress.done();
+        alert('出现未知错误,请刷新页面')
+      })        
   } else {
     next() // 确保一定要调用 next()
   }

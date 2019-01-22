@@ -12,7 +12,7 @@
       <div id="chart5" @click="jiading"></div>
     </div>
     <el-dialog :title="title" :visible.sync="dialogTableVisible">
-      <el-table :data="gridData" border>
+      <el-table :data="gridData" border :default-sort="{prop: 'c1', order: 'descending'}">
         <el-table-column property="college" label="学院" align="center"></el-table-column>
         <el-table-column
           v-for="(item,index) in label"

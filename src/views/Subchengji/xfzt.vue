@@ -61,7 +61,7 @@ export default {
           return flag;
       },
       downLoadTableUrl(){
-           var base = 'http://192.168.1.21:8080/visualdata/cjsj/xfzt/message?xymc=';
+           var base = 'http://202.120.117.108:8080/visualdata/cjsj/xfzt/message?xymc=';
            var college = this.$store.state.form.college;
            var nj =  this.$store.state.form.grade
            return base + college+'&nj='+nj;

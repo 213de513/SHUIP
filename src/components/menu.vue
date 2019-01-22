@@ -33,8 +33,11 @@
                     storage.setItem('college','');
                     this.$router.push('/');
                 }else{
+
                     alert('退出失败，请重试')
                 }
+            }).catch(err=>{
+                console.log(err);
             })            
              
     }

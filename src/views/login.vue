@@ -18,10 +18,19 @@
                     <div class="form-group" style='margin-top:50px;'>
                         <label for="name" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                        <input type="password" class="form-control" id="name" placeholder="请输入密码" v-model="password" @keyup.enter="login">
+                        <input type="password" class="form-control" id="name" placeholder="请输入密码" v-model="password" >
                         </div>
                     </div>
-                    <div class="form-group" style='margin-top:80px;'>
+                    <div class="form-group" style='margin-top:50px;'>
+                        <label for="identify" class="col-sm-2 text-center" style='padding:6px'>验证码</label>
+                        <div class="col-sm-4" style='padding:0;margin-left:18px'>
+                        <input type="text" class="form-control" id="identify" placeholder="输入验证码" v-model="yzm" @keyup.enter="login">
+                        </div>
+                        <div class="col-sm-5">
+                            <img :src="yzmsrc" alt="验证码" @click="getSrc" id='yzm'>
+                        </div>
+                    </div>
+                    <div class="form-group" style='margin-top:40px;'>
                         <div class="col-sm-12">
                             <input type='button' id='btn' class="btn btn-info" @click="login" value='登录'>
                         </div>
@@ -43,7 +52,9 @@ export default {
       return {
           username:'',
           password:'',
-          showLoading:false
+          yzm:'',
+          showLoading:false,
+          yzmsrc:''
       }
   },
   methods:{
@@ -58,10 +69,16 @@ export default {
                 message: '密码不能为空',
                 type: 'warning'
                 });
-            }else{
+            }else if(this.yzm==''){
+                this.$message({
+                message: '验证码不能为空',
+                type: 'warning'
+                });
+            }
+            else{
                 this.showLoading = true;
                 var data1 = JSON.stringify({sID:this.username,sPass:this.password})
-                 this.$http({url:'/apis/user/login',method:'post',data:data1,headers:{'Content-type':'application/json'}}).then(res=>{
+                 this.$http({url:'/apis/user/login?yzm='+this.yzm,method:'post',data:data1,headers:{'Content-type':'application/json'}}).then(res=>{
                         this.showLoading = false;
                         var result = res.data;
                         if(result.code==2000){
@@ -74,9 +91,22 @@ export default {
                         }else if(result.code==2002||result.code==2001){
                             this.$message.error(result.message);
                             this.password = '';
+                            this.yzm = '';
+                            this.getSrc();
                         }
                     })
             }         
+      },
+      getSrc(){
+        this.$http({url:'/apis/user/yzm',method:'get'}).then(res=>{
+                var result = res.data;
+                if(result.code==2000){
+                    this.yzmsrc = 'data:image/jpeg;base64,'+result.data
+                }else{
+                    this.$message.error(result.message);
+                    this.yzm = '';
+                }
+            })
       }
   },
   components:{
@@ -88,6 +118,9 @@ export default {
       if(status==='on'){
           this.$router.push('/content');
       }
+  },
+  created(){
+       this.getSrc();
   }
 }
 </script>
@@ -121,7 +154,7 @@ export default {
            position: absolute;
            top: 180px;
            right: 200px;
-           padding: 50px 20px;
+           padding: 30px 20px;
            h2{
                text-align: center;
                font-size: 25px;
@@ -129,7 +162,7 @@ export default {
             //    border-bottom: 2px solid #ddd;
            }
            .login-form{
-               margin-top: 50px;
+               margin-top: 30px;
                height: 300px;
                 #btn{
                     width: 100%;
@@ -137,7 +170,11 @@ export default {
                     text-align: center;
                     font-size: 20px;
                 }
+                #yzm{
+                    cursor: pointer;
+                }
            }
+         
        }
    }
   

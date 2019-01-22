@@ -1426,8 +1426,13 @@ export default new vuex.Store({
                 }
                 commit('changeGridData', arr);
                 state.tableTitle = res.data.mulityData.title;
+                if(res.data.mulityData.yAxis.length==1){
+                  state.height.height = res.data.mulityData.yAxis.length * 200 + "px";
+                }else{
+                  state.height.height = res.data.mulityData.yAxis.length * 150 + "px";
+                } 
                 setTimeout(() => {
-                  commit("drawTMulityBar", {
+                  commit("drawTMulityBar2", {
                     el: "chart2",
                     data: res.data.mulityData
                   });

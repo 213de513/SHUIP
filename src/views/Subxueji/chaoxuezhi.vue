@@ -9,6 +9,7 @@
             :data="tableData"
             stripe
             border
+            :default-sort="{prop: 'number', order: 'descending'}"
             style="width: 100%">
                 <el-table-column
                 prop="college"
@@ -25,11 +26,15 @@
                 <el-table-column
                 prop="number"
                 label="超学制人数"
+                :sortable='true'
+                :sort-method="sort"
                  align="center"
                 >
                 </el-table-column>
                 <el-table-column
                 prop="percent"
+                :sortable='true'
+                :sort-method="sort1"
                 label="超学制人数占学院人数比例"  align="center">
                 </el-table-column>
         </el-table>
@@ -80,14 +85,20 @@ import {mapMutations} from 'vuex'
    methods:{
         ...mapMutations([
             'pPost','changeRoute','changeTableData'
-        ])
+        ]),
+        sort(a,b){
+            return parseInt(a.number)-parseInt(b.number)
+        },
+         sort1(a,b){
+            return parseFloat(a.percent)-parseFloat(b.percent)
+        }
    },
    computed:{
        tableData(){
            return this.$store.state.tableData;
        },
        downLoadTableUrl(){
-           var base = 'http://192.168.1.18:8080/visualdata/xjsj/cxzsj/cxzxx?xymc=';
+           var base = 'http://202.120.117.108:8080/visualdata/xjsj/cxzsj/cxzxx?xymc=';
            var college = this.$store.state.form.college+'&zymc=';
            var discipline = this.$store.state.form.discipline
            return base + college+discipline;

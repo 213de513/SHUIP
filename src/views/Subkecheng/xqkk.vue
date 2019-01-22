@@ -24,10 +24,7 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      dialogTableVisible:false,
-      height:{
-        height:'200px'
-      }
+      dialogTableVisible:false
     };
   },
   methods: {
@@ -53,8 +50,13 @@ export default {
             el: "chart3",
             data: res.data.kkms
           });
+          if(xymc=='学校'){
+            this.$store.state.showBar = true;
+          }else{
+           this.$store.state.showBar = false;
+          }
           if(this.showBar){
-                  this.height.height = res.data.mulityData.yAxis.length * 100+'px';
+                   this.$store.state.height.height  = res.data.mulityData.yAxis.length * 100+'px';
               //格式化列表数据
                    var arr = [];
                   for(var i=0;i<res.data.mulityData.yAxis.length;i++){
@@ -110,7 +112,10 @@ export default {
           }else{
             return false;
           }
-      }
+      },
+      height() {
+      return this.$store.state.height;
+    }
   }
 };
 </script>

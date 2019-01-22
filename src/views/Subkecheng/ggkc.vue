@@ -47,6 +47,11 @@ export default {
             el: "chart1",
             data: res.data.chartData
           });
+          if(xymc=='学校'){
+            this.$store.state.showBar = true;
+          }else{
+           this.$store.state.showBar = false;
+          }
           if(this.showBar){
                this.changeHeight(res.data.mulityData)
               //格式化列表数据
@@ -95,14 +100,9 @@ export default {
           return this.$store.state.height;
       },
       showBar(){
-          var storage = window.localStorage;
-          var college = storage.getItem('college');
-          var flag = this.$store.state.showBar;
-          if(college=='学校'&&flag){
-            return true
-          }else{
-            return false;
-          }
+     
+         return this.$store.state.showBar;
+         
       }
   }
 };

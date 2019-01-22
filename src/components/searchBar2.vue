@@ -84,7 +84,7 @@
       <!-- 学期（春、秋、冬）-->
       <div class="form-group" v-show="showTerm">
         <label for="term">学期</label>
-        <el-select v-model="term_sel" placeholder="请选择学期" multiple id="term" size="small">
+        <el-select v-model="term_sel"  placeholder="请选择学期" multiple id="term" size="small" style='width:220px'>
           <el-option v-for="item in termData" :key="item" :label="item" :value="item"></el-option>
         </el-select>
       </div>
@@ -106,40 +106,41 @@ export default {
         "理学院",
         "文学院",
         "外国语学院",
-        "管理学院",
         "法学院",
         "通信与信息工程学院",
         "计算机工程与科学学院",
         "机电工程与自动化学院",
         "材料科学与工程学院",
         "环境与化学工程学院",
-        "生命科学学院",
-        "上海美术学院",
+        "生命科学学院","上海美术学院",
         "上海电影学院",
-        "数码艺术学院",
-        "电子生物中心",
         "悉尼工商学院",
-        "系统生物技术研究所",
-        "土木工程系",
-        "社会学院",
         "社会科学学部",
-        "音乐学院",
+        "土木工程系",
+        "体育学院",
+        "国际教育学院",
         "艺术研究院",
+        "数码艺术学院",
+        "管理学院",
+        "图书情报档案系",
         "经济学院",
         "公共管理系",
+        "社会学院",
+        "新闻传播学院",
+        "音乐学院",
+        "快速制造中心",
+        "BA中心",
         "微电子中心",
+        "电子生物中心",
         "力学所",
-        "图书情报档案系",
+        "纳米科学与技术中心",
+        "系统生物技术研究所",
+        "中国艺术研究院上海分院",
         "材料基因组工程研究院",
         "上海研究院",
-        "国际教育学院",
-        "可持续能源研究院",
-        "新闻传播学院",
-        "纳米科学与技术研究中心",
-        "纳米科学与技术中心",
-        "体育学院",
-        "MBA中心",
-        "其他"
+        "其他",
+        "钱伟长学院",
+        "公共学院"
       ],
       discipline: [], //可选专业
       myDiscipline: "所有专业", //所选专业
@@ -186,7 +187,7 @@ export default {
     getGrade() {
       var xymc = this.nowColoege;
       var zymc = this.myDiscipline;
-      if(xymc=='学校'){
+      if(xymc=='学校'&&this.route!='/kcsj/kxyxk'){
         this.nowGrade = '';
         this.grade = [];
       }else{
@@ -274,7 +275,7 @@ export default {
         this.getNd();
       }else if(this.route=='/cjsj/xfzt'||this.route=='/kcsj/kxyxk'){
         this.getGrade();
-      }else if(this.route == '/kcsj/xqkk'){
+      }else if(this.route == '/kcsj/xqkk'||this.route == '/kcsj/tksj'){
         this.getTerm();
       }
     },
@@ -400,7 +401,9 @@ export default {
     },
     showND() {
       if (
-        this.baseRoute == "/sysj" ||
+        this.route == "/sysj" ||
+        this.route == "/sysj/sssydq" ||
+        this.route == "/sysj/zzmm" ||
         this.route == "/xjsj/yidong" ||
         this.route == "/kcsj" ||
         this.route == "/kcsj/pyfa" ||
@@ -412,7 +415,7 @@ export default {
       }
     },
     showTerm() {
-      if (this.route == "/kcsj/xqkk") {
+      if (this.route == "/kcsj/xqkk"||this.route == "/kcsj/tksj") {
         return true;
       } else {
         return false;
@@ -477,18 +480,24 @@ export default {
     justify-content: space-around;
   }
 }
- @media screen and (max-width:1550px) {
-        #search2 {
-          top: 81px;
-          left: 182px;
-          right: 0;
-          padding: 7px 10px;
-          #college,#discipline{
-            max-width: 175px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 6px;
-          }
-        }  
+@media screen and (max-width: 1550px) {
+  #search2 {
+    top: 81px;
+    left: 182px;
+    right: 0;
+    padding: 7px 10px;
+    #college,
+    #discipline,
+    #grade {
+      font-size: 12px;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 6px;
     }
+    #term{
+      max-width: 200px;
+    }
+  }
+}
 </style>

@@ -11,9 +11,9 @@ import qs from 'qs'
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-axios.defaults.withCredentials=true;
 Vue.prototype['$http'] = axios;
 Vue.prototype['$qs'] = qs;
+axios.defaults.withCredentials=true;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
